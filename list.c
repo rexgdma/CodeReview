@@ -7,37 +7,37 @@ typedef struct
 	int length;
 }link;
 
-int initlink(link &p) //å»ºç«‹é¡ºåºè¡¨ï¼Œå¹¶åˆå§‹åŒ–ã€‚
+int InitLink(link &p) //½¨Á¢Ë³Ğò±í£¬²¢³õÊ¼»¯¡£
 {
 	p.head=new int[size];
 	if(!p.head) return 0;
 	p.length=0;
 	return 1;
 }
-void input(link &p)  //è¾“å…¥å€¼
+void input(link &p)  //ÊäÈëÖµ
 {
 	int i;
-	printf("è¾“å…¥è¡¨é•¿");
+	printf("ÊäÈë±í³¤");
 	scanf("%d",&p.length);
-	printf("é¡ºåºè¾“å…¥ï¼š");
+	printf("Ë³ĞòÊäÈë£º");
 	for(i=0;i<p.length;i++)
 		scanf("%d",&p.head[i]);
 }
-int get(link p,int i)//å–å€¼
+int get(link p,int i)//È¡Öµ
 {
 	int x;
 	if(i<1||i>p.length)  return 0;
 	x=p.head[i-1];
 	return x;
 }
-int locate(link p,int e)//æŸ¥æ‰¾
+int FindLocation(link p,int e)//²éÕÒ
 {
 	int i;
-	for(i=0;i<p.length;i++)
-	if(p.head[i]==e) return i+1;
+	{for(i=0;i<p.length;i++)
+		if(p.head[i]==e) return i+1;}
 	return 0;
 }
-int insert(link &p,int i,int e)//æ’å…¥
+int insert(link &p,int i,int e)//²åÈë
 {
 	int j;
 	if(i<1||i>p.length+1) return 0;
@@ -48,7 +48,7 @@ int insert(link &p,int i,int e)//æ’å…¥
 	++p.length;
 	return 1;
 }
-int Delete(link &p,int i) //åˆ é™¤
+int Delete(link &p,int i) //É¾³ı
 {
 	int j;
 	if((i<1)||(i>p.length+1)) return 0;
@@ -57,13 +57,13 @@ int Delete(link &p,int i) //åˆ é™¤
 	--p.length;
 	return 1;
 }
-void output(link &p) //è¾“å‡º
+void output(link &p) //Êä³ö
 {
 	int k;
 	for(k=0;k<p.length;k++)
 		printf("p.head[%d]=%d\n",k,p.head[k]);
 }
-void killbig(link &p) //åˆ é™¤æœ€å¤§
+void DeleteMax(link &p) //É¾³ı×î´ó
 {
 	int i,k=0;
 	for(i=1;i<p.length;i++)
@@ -71,7 +71,7 @@ void killbig(link &p) //åˆ é™¤æœ€å¤§
 	Delete(p,k+1);
 }
 
-void chaxiao(link &p) //åœ¨æœ€å°å€¼å…ƒç´ åé¢æ’å…¥ä¸€ä¸ªè¿™ä¸ªæœ€å°å€¼å…ƒç´ 
+void InsertMin(link &p) //ÔÚ×îĞ¡ÖµÔªËØºóÃæ²åÈëÒ»¸öÕâ¸ö×îĞ¡ÖµÔªËØ
 {
 	int i,j,k=0;
 	for(i=1;i<p.length;i++)
@@ -79,13 +79,13 @@ void chaxiao(link &p) //åœ¨æœ€å°å€¼å…ƒç´ åé¢æ’å…¥ä¸€ä¸ªè¿™ä¸ªæœ€å°å€¼å…ƒç´
 	j=p.head[k];
 	insert(p,k+1,j);
 }
-void hebing(link &a,link &b)
+void MergeLink(link &a,link &b)
 {
 	int j,e,h;
 	for(j=1;j<=b.length;j++)
 	{
 		e=get(b,j);
-		h=locate(a,e);
+		h=FindLocation(a,e);
 		if(h==0)
 			insert(a,a.length+1,e);
 	}
@@ -95,28 +95,27 @@ void main()
 {
 	link x;
 	int a;
-	a=initlink(x);
+	a=InitLink(x);
 	if(a==1)
 	printf("ok");
 	else
 		printf("no");
 	input(x);
-	printf("è¾“å‡ºè¡¨ä¸€:\n");
+	printf("Êä³ö±íÒ»:\n");
 	output(x);
 
 	link y;
 	int b;
-	b=initlink(y);
+	b=InitLink(y);
 	if(b==1)
 	printf("ok");
 	else
 		printf("no");
 	input(y);
-	printf("è¾“å‡ºè¡¨äºŒ:\n");
+	printf("Êä³ö±í¶ş:\n");
 	output(y);
-	hebing(x,y);
-	printf("è¾“å‡ºåˆå¹¶:\n");
+	MergeLink(x,y);
+	printf("Êä³öºÏ²¢:\n");
 	output(x);
 
 }
-
